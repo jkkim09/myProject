@@ -22,4 +22,8 @@ npm install
 * 0.0.1
     * custom-modal: 초기 설계
 
-## Meta
+
+> custom-modal
+
+# 설정 Options
+
