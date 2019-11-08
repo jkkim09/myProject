@@ -2,8 +2,6 @@
 > 작업환경.
 
 [![NPM Version][npm-image]][npm-url]
-[![Build][webpack]]
-[![Downloads Stats][npm-downloads]][npm-url]
 
 One to two paragraph statement about your product and what it does.
 
