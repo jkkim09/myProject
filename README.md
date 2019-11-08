@@ -7,7 +7,7 @@
 
 ## Installation
 
-OS X & Linux:
+Window:
 
 ```sh
 npm install my-crazy-module --save
