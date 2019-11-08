@@ -1,0 +1,54 @@
+#custom_modal_table {
+    z-index: 100000;
+    width: 100%;
+    height: 100%;
+    color: #666;
+    font-size: 12px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.custom_modal_container {
+    width: 350px;
+    height: 150px;
+    display: inline-block;
+    background-color: #ffffff;
+}
+
+#custom_modal_text {
+    width: 310px;
+    height: 57px;
+    margin: 20px 20px;
+    text-align: center;
+    overflow: auto;
+}
+
+#custom_modal_button {
+    width: 330px;
+    height: 33px;
+    padding: 10px;
+    border-top: 1px solid #e5e5e5;
+    background-color: #f2f2f2;
+}
+
+#conform_click {
+    width: 112px;
+    height: 28px;
+    background-color: #0080ba;
+    border: 0;
+    border-radius: 20px;
+    margin-top: 2px;
+    text-decoration: none;
+    float: right;
+    color: #ffffff;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.custom_modal_container_spinner {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    background: url('../img/spinner.gif') no-repeat;
+}

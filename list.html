@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                width: auto;
+                max-width: 40%;
+                height: 50px;
+                line-height: 50px;
+                font-size: 20px;
+                text-align: center;
+                float: left;
+                margin: 10px;
+                padding: 5px;
+            }
+            #title-area {
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                background-color: #2b2727;
+                color: #ffffff;
+                text-align: center;
+                font-weight: bold;
+                font-size: 35px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="title-area">sample page list</div>
+    </body>
+    <script>
+        // 컨첸츠 리스트
+        const list_items = [
+            {
+                title: 'custom-modal',
+                path: './custom-modal/sample.html'
+            },
+            {
+                title: 'custom-modal',
+                path: './custom-modal/sample.html'
+            },
+            {
+                title: 'custom-modal',
+                path: './custom-modal/sample.html'
+            }
+        ];
+
+        /**
+         * body append element 
+         */
+        for (const i in list_items) {
+            const h1_el = document.createElement('h1');
+            const item  = list_items[i];
+            const title = item.title;
+            const path  = item.path;
+
+            const index = parseInt(i) + 1;
+            //background-color 
+            const x = Math.floor(Math.random() * 256);
+            const y = Math.floor(Math.random() * 256);
+            const z = Math.floor(Math.random() * 256);
+            const bgColor = "rgb(" + x + "," + y + "," + z + ")";
+
+            h1_el.style.background = bgColor;
+            h1_el.innerHTML = index + " : " + title;
+            addEvent(h1_el, path);
+            document.body.append(h1_el);
+        }
+
+        /**
+         *  click event 등록 
+         */
+        function addEvent (el, path) {
+            el.addEventListener('click', function () {
+                window.location.href = path;
+            });
+        }
+    </script>
+</html>
