@@ -22,10 +22,9 @@ npm install
 * 0.0.1
     * custom-modal: 초기 설계
 
+# 1 . custom-modal
 
-> custom-modal
-
-# 설정 Options
+## 설정 Options
 
 ```javascript
 const util = new custom_modal();
