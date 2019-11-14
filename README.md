@@ -41,4 +41,11 @@ util.init({
 	}
 });
 ```
+## 함수
+| 함수 | 설명 |
+|---|:---:|
+| `init` | modal 을 초기화 한다. |
+| `open` | 초기화된 modal 을 연다. |
+| `close` | 모달을 닫는다. |  
+| `openSpinner` | spinner 을 연다. |  
 
