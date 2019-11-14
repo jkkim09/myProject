@@ -29,27 +29,15 @@
                 font-size: 35px;
             }
         </style>
+        <script src="./config.js"></script>
     </head>
     <body>
         <div id="title-area">sample page list</div>
     </body>
     <script>
         // 컨첸츠 리스트
-        const list_items = [
-            {
-                title: 'custom-modal',
-                path: './custom-modal/sample.html'
-            },
-            {
-                title: 'custom-modal',
-                path: './custom-modal/sample.html'
-            },
-            {
-                title: 'custom-modal',
-                path: './custom-modal/sample.html'
-            }
-        ];
-
+        const list_items = new listConfig().init();
+        
         /**
          * body append element 
          */
