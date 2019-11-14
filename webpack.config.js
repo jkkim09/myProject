@@ -4,10 +4,12 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode:'development',
     entry: {
-        app: ['./custom-modal/css/custom-modal.css','./custom-modal/js/custom-modal.js']
+        'custom-modal': ['./custom-modal/css/custom-modal.css','./custom-modal/js/custom-modal.js'],
+        'test-js':['./custom-modal/js/custom-modal.js']
     },
     output: {
-      filename: 'custom-modal.min.js',
+      filename: '[name].min.js',
+      chunkFilename: '[id].js',
       path: path.resolve(__dirname, 'dist'),
     //   publicPath: 'dist/'
     },
