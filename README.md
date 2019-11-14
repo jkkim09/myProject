@@ -27,3 +27,18 @@ npm install
 
 # 설정 Options
 
+```javascript
+const util = new custom_modal();
+util.init({
+	append_target_el: document.body,
+	modal_text: document.getElementById('title').value,
+	conform_button: {
+		text: document.getElementById('button-title').value,
+		// href: 'https://naver.com',
+		click_function: function() {
+			// util.close();
+		}
+	}
+});
+```
+

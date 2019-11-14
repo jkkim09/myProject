@@ -17,8 +17,17 @@
                 float: left;
                 margin: 10px;
                 padding: 5px;
+                cursor: pointer;
+                border-radius: 6px;
             }
-            #title-area {
+            h2 {
+                width: 100%;
+                height: auto;
+                margin: 0;
+                padding: 0;
+            }
+            .title-area {
+                float: left;
                 width: 100%;
                 height: 40px;
                 line-height: 40px;
@@ -28,24 +37,64 @@
                 font-weight: bold;
                 font-size: 35px;
             }
+            #list-area, #list-info-area {
+                float: left;
+                width: 100%;
+                height: auto;
+            }
+            .list-info-text {
+                width: 100%;
+                height: auto;
+                font-weight: 500;
+                font-size: 18px;
+                text-align: center;
+                padding: 15px 10px;
+                box-sizing: border-box;
+                border: 1px solid #000000;
+                background-color: #ededed;
+            }
+            #foot-area {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 50px;
+                box-sizing: border-box;
+                padding: 5px;
+                background-color: #2b2727;
+                color: #ffffff;
+            }
         </style>
         <script src="./config.js"></script>
     </head>
     <body>
-        <div id="title-area">sample page list</div>
+        <div class="title-area">sample page list</div>
+        <div id="list-area"></div>
+        <div class="title-area">sample info</div>
+        <div id="list-info-area"></div>
+        <div id="foot-area">
+            <span>Email: wkrud203@gmail.com</span>
+        </div>
     </body>
     <script>
         // 컨첸츠 리스트
         const list_items = new listConfig().init();
-        
+        const list_items_length = list_items.length;
+        const list_area = document.getElementById('list-area');
+        const list_info_area = document.getElementById('list-info-area');
         /**
          * body append element 
          */
         for (const i in list_items) {
-            const h1_el = document.createElement('h1');
-            const item  = list_items[i];
-            const title = item.title;
-            const path  = item.path;
+            const h1_el     = document.createElement('h1');
+            const dev_el    = document.createElement('div');
+
+            dev_el.setAttribute('class', 'list-info-text');
+            
+            const item      = list_items[i];
+            const title     = item.title;
+            const path      = item.path;
+            const info      = item.info;
 
             const index = parseInt(i) + 1;
             //background-color 
@@ -54,10 +103,23 @@
             const z = Math.floor(Math.random() * 256);
             const bgColor = "rgb(" + x + "," + y + "," + z + ")";
 
+            // list append
             h1_el.style.background = bgColor;
             h1_el.innerHTML = index + " : " + title;
+            console.log(index, list_items_length);
+            
             addEvent(h1_el, path);
-            document.body.append(h1_el);
+            list_area.append(h1_el);
+
+            // info append
+            if (info) {
+                dev_el.innerHTML = '<h2> - ' + title + ' - </h2>' + '<br>' + info;
+                if (index === list_items_length) {
+                    dev_el.style.marginBottom = 50 + 'px';
+                }
+                list_info_area.append(dev_el);
+            }
+
         }
 
         /**
