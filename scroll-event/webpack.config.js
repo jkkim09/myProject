@@ -4,8 +4,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode:'development',
     entry: {
-        'custom-modal': ['./custom-modal/css/custom-modal.css','./custom-modal/js/custom-modal.js'],
-        'test-js':['./custom-modal/js/custom-modal.js']
+        'mouse-scroll-event': ['./src/javascript/mouse-scroll/mouse-scroll-event.js'],
     },
     output: {
       filename: '[name].min.js',
@@ -38,12 +37,12 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new HtmlWebPackPlugin({
-            template:'./custom-modal/index.html',
-            filename:'./index.html'
-        })
-    ],
+    // plugins: [
+    //     new HtmlWebPackPlugin({
+    //         template:'./custom-modal/index.html',
+    //         filename:'./index.html'
+    //     })
+    // ],
 
     devServer: {
         contentBase: './',
