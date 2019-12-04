@@ -202,7 +202,7 @@
         var target_el = getElement();
         
         // click 시 window size 확인
-        windowVideoSizeSet();
+        windowVideoSizeSet(target_el);
 
         if(!getConfig('mobile_check')) {
             // mousemove, mouseup 이벤트 등록
@@ -355,14 +355,29 @@
 
     /**
      * window, target 의 width, height 값읋 config set 한다.
+     * 
+     * @param {Element} target        position 을 이동할 target Element
      */
-    function windowVideoSizeSet () {
-        var window_width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        var window_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        
+    function windowVideoSizeSet (target) {
+        var parent_width = 0;
+        var parent_height = 0;
+
+        /**
+         * target 이 있을경우 부모 element 의 width, height 를 구하고 
+         * target 이 없을경우 window 의 width, height 를 구하고 
+         */
+        if (target) {
+            var parent_el = target.parentElement
+            parent_width = parent_el.innerWidth || parent_el.clientWidth || document.body.clientWidth;
+            parent_height = parent_el.innerHeight || parent_el.clientHeight || document.body.clientHeight;
+        } else {
+            parent_width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            parent_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        }
+
         setConfig({
-            width: window_width,
-            height: window_height
+            width: parent_width,
+            height: parent_height
         }, 'window_value');
 
         setConfig({
@@ -403,13 +418,17 @@
      * @param {Element} target        position을 변경할 target element
      */
     function classAddEvent (target) {
-        // IE<9
-        target.setAttribute('class', target.getAttribute('class') + ' mouse-scroll-target-css');
-        var head_el = document.getElementsByTagName('head')[0];
-        // style tag head 추가
-        var style_el = document.createElement('style');
-        style_el.innerHTML = getConfig('class_css');
-        head_el.appendChild(style_el);
+        var style_el = document.getElementById('mouse-scroll-target-css');
+        if (!style_el) {
+            // IE<9
+            target.setAttribute('class', target.getAttribute('class') + ' mouse-scroll-target-css');
+            var head_el = document.getElementsByTagName('head')[0];
+            // style tag head 추가
+            var style_el = document.createElement('style');
+            style_el.setAttribute('id', 'mouse-scroll-target-css');
+            style_el.innerHTML = getConfig('class_css');
+            head_el.appendChild(style_el);
+        }
         // config setting
         setConfig(true, 'class_add');
         setConfig(style_el, 'class_add_el');
