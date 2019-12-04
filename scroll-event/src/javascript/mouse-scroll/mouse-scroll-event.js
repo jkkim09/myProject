@@ -424,7 +424,7 @@
             target.setAttribute('class', target.getAttribute('class') + ' mouse-scroll-target-css');
             var head_el = document.getElementsByTagName('head')[0];
             // style tag head 추가
-            var style_el = document.createElement('style');
+            style_el = document.createElement('style');
             style_el.setAttribute('id', 'mouse-scroll-target-css');
             style_el.innerHTML = getConfig('class_css');
             head_el.appendChild(style_el);
