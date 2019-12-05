@@ -12,6 +12,11 @@ Windows:
 npm install
 ```
 
+## sample page  실행 
+```sh
+npm run dev # http://127.0.0.1:3003/list.html 접속
+```
+
 ## Utile list
 
 1. custom-modal : Browser alert 이 아닌 cutome 가능한 html modal
