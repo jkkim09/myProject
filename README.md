@@ -46,7 +46,7 @@ util.init({
 
 ## - Options
 
-```json
+```
 {
 	append_target_el : // modal 을 화면에 append 할 element
 	modal_text: 	// modal 에 표시 할 text
@@ -84,7 +84,7 @@ scrollUtil.init({
 
 ## - Options
 
-```json
+```
 {
 	target_id : // scroll event 가 걸릴 element "id"
 	add_css: 	// scroll 이벤트가 발생할 target element의 추가적인 css
