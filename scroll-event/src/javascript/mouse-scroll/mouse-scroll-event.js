@@ -29,9 +29,10 @@
         event_check: false,
         first_moce: false,
         mobile_check: false,
-        class_css: '.mouse-scroll-target-css { transform: translateX(0px) !important; }',
-        regular: /[^translateX\(]+px/g
-    }
+        class_css: '.mouse-scroll-target-css { transform: translateX(0px) translateY(0px) !important;}',
+        regularX: /(translateX\()(-|)[\d]{1,9}px\)/g,
+        regularY: /(translateY\()(-|)[\d]{1,9}px\)/g
+    };
     var options = {};
     var target_element;
 
@@ -126,13 +127,19 @@
             console.error('scroll event target undefined element!');
             return;
         }
+        // 중복 초기화(init) validation
+        if (targetEl.getAttribute("data-scrollEventCheck")) {
+            targetResit(targetEl);
+            return;
+        }
         sertElement(targetEl);
         setConfig(checkTouchDevice(), 'mobile_check');
 
         // data-x, data-y 초기화
         targetEl.setAttribute("data-x", 0);
         targetEl.setAttribute("data-y", 0);
-
+        // 중복 초기화(init) validation 초기화
+        targetEl.setAttribute("data-scrollEventCheck", true);
         // class or attibute 따라 position 변경 선택 초기화
         if (options.class_add) {
             classAddEvent(targetEl);
@@ -197,7 +204,7 @@
      */
     function onMouseDown() {
         // 중복 이벤트 등록 check
-        if (getConfig('event_check')) {return};
+        if (getConfig('event_check')) {return;}
 
         var target_el = getElement();
         
@@ -272,6 +279,7 @@
         var window_value = getConfig('window_value');
         var video_value = getConfig('video_value');
 
+        
         // 클릭 후 처음 이동시 target 의 position 확인
         if (!getConfig('first_moce')) {
             setConfig(true, 'first_moce');
@@ -287,19 +295,27 @@
         var move_vale_x = x + get_befor_position.x;
         var move_vale_y = y + get_befor_position.y;
         var position_end = window_value.width - video_value.width;
+        var position_height_end = window_value.height - video_value.height;
         // move_vale_x 값 보정 (좌우 끝 position 확인)
-        if (move_vale_x > 0) {
+        // target width < parent width
+        if (move_vale_x > 0 || video_value.width < window_value.width) {
             // left end point
             move_vale_x = 0;
-        } else if (move_vale_x < (position_end)) {
+        } else if (move_vale_x < position_end) {
             // right end point
             move_vale_x = position_end;
         }
-
-        // 0 <= target <= window.width 일 경우 position 변경
-        if (move_vale_x <= 0 && (position_end) <= move_vale_x) {
-            targetSetAttribute(target, move_vale_x, move_vale_y);
+        // move_vale_y 값 보정 (상하 끝 position 확인)
+        // target height < parent height
+        if (move_vale_y > 0 || video_value.height < window_value.height) {
+            // left end point
+            move_vale_y = 0;
+        } else if (move_vale_y < position_height_end) {
+            // right end point
+            move_vale_y = position_height_end;
         }
+        
+        targetSetAttribute(target, move_vale_x, move_vale_y);
     }
 
     /**
@@ -342,12 +358,13 @@
         // class_add : true => style 을만들어서 적용
         // class_add : false => target attribute (style)  수정하여 변경
         if (getConfig('class_add')) {
-            var regular = getConfig('regular');
+            var regularX = getConfig('regularX');
+            var regularY = getConfig('regularY');
             var class_css = getConfig('class_css').replace('}', add_css + '}');
             var style_el = getConfig('class_add_el');
-            style_el.innerHTML = class_css.replace(regular, x +'px');
+            style_el.innerHTML = class_css.replace(regularX, 'translateX('+  x +'px)').replace(regularY, 'translateY('+  y +'px)');
         } else {
-            target.setAttribute('style', 'transform: translateX('+ x +'px) !important;' + add_css);
+            target.setAttribute('style', 'transform: translateX('+ x +'px) translateX(' + y + 'px) !important;' + add_css);
         }
         target.setAttribute('data-x', x || 0);
         target.setAttribute('data-y', y || 0);
@@ -367,7 +384,7 @@
          * target 이 없을경우 window 의 width, height 를 구하고 
          */
         if (target) {
-            var parent_el = target.parentElement
+            var parent_el = target.parentElement;
             parent_width = parent_el.innerWidth || parent_el.clientWidth || document.body.clientWidth;
             parent_height = parent_el.innerHeight || parent_el.clientHeight || document.body.clientHeight;
         } else {
@@ -394,17 +411,17 @@
      */
     function watchEvent (options) {
         setInterval(function () {
-            var regular = getConfig('regular');
+            var regularX = getConfig('regularX');
             var target = getElement();
             var x_position = parseInt(target.getAttribute('data-x'));
             var y_position = parseInt(target.getAttribute('data-y'));
             var target_style = target.getAttribute('style');
-            var regular_value = regular.exec(target_style);
+            var regularX_value = regularX.exec(target_style);
             var style_value = 0;
-            if (!regular_value || regular_value === null) {
+            if (!regularX_value || regularX_value === null) {
                 targetSetAttribute(target, x_position, y_position);
             } else {
-                style_value = parseInt(regular_value[0].replace('px', ''));
+                style_value = parseInt(regularX_value[0].replace('px', ''));
                 if (style_value !== x_position) {
                     targetSetAttribute(target, x_position, y_position);
                 }
@@ -419,9 +436,14 @@
      */
     function classAddEvent (target) {
         var style_el = document.getElementById('mouse-scroll-target-css');
+
+        // target 에 mouse-scroll-target-css class 가 없을때 추가
+        if (target.getAttribute('class').indexOf('mouse-scroll-target-css') === -1) {
+            target.setAttribute('class', target.getAttribute('class') + ' mouse-scroll-target-css');
+        }
+        // style 없을 때 추가
         if (!style_el) {
             // IE<9
-            target.setAttribute('class', target.getAttribute('class') + ' mouse-scroll-target-css');
             var head_el = document.getElementsByTagName('head')[0];
             // style tag head 추가
             style_el = document.createElement('style');
@@ -433,9 +455,26 @@
         setConfig(true, 'class_add');
         setConfig(style_el, 'class_add_el');
     }
+
+    /**
+     * 
+     * @param {*} targetEl      target element 
+     * @param {*} targetId      target id
+     */
+    function targetResit (targetEl, targetId) {
+        var target_id = targetId;
+        var target_el = targetEl;
+        if (!targetEl && target_id) {
+            target_el = document.getElementById(target_id);
+        }
+        if (target_el.getAttribute('class').indexOf('mouse-scroll-target-css') === -1) {
+            target_el.setAttribute('class', (target_el.getAttribute('class') + ' mouse-scroll-target-css').replace(/ {2,5}/g, ' '));
+        }
+    }
     
     return {
         init: initFunction,
-        reSet: windowResize
-    }
-})
+        reSet: windowResize,
+        targetResit: targetResit
+    };
+});
