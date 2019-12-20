@@ -332,10 +332,25 @@
 
     /**
      * target 의 element return
-     * @param {*} id        target id
+     * @param {*} id        target ids
      */
     function returnElementFunction (id) {
-        return document.getElementById(id);
+        var id_type = typeof id;
+        var return_element;
+        switch (id_type.toLowerCase()) {
+            case 'string' : 
+                return_element = document.getElementById(id);
+            break;
+            case 'object' :
+                for (var index in id) {
+                    var el = document.getElementById(id[index]);
+                    if (el) {
+                        return_element = el;
+                    }
+                }
+            break;
+        }
+        return return_element;
     }
     
     /**
