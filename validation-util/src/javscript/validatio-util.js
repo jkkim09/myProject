@@ -32,12 +32,12 @@ class ValidationUtil extends ValidationConfig {
     }
 
     valueTypeCheck (index, value, type, rule) {
-        const getRole = rule ? rule: super.getRule(type.toLowerCase());
+        const getRole = type ? type: rule;
         switch (typeof value) {
             case 'object' :
                 break;
             default :
-                console.log(value, getRole, getRole.test(value));
+                console.log(value, getRole);
                 break;
         }
     }
