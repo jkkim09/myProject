@@ -5,7 +5,7 @@ module.exports = {
     mode:'development',
     entry: {
         'custom-modal': ['./custom-modal/css/custom-modal.css','./custom-modal/js/custom-modal.js'],
-        'mouse-scroll':['./scroll-event/src/css/videojs-css.css', './scroll-event/src/javascript/mouse-scroll/mouse-scroll-event.js']
+        'mouse-scroll':['./scroll-event/src/javascript/mouse-scroll/mouse-scroll-event.js']
     },
     output: {
       filename: '[name].min.js',
