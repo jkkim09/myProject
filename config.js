@@ -11,6 +11,11 @@
             title: 'scroll-event',
             path: './scroll-event/index.html',
             info: 'mouse or touch 이벤트를 이용하여 스크롤 영역의 부모 element 영역에서 상 후 좌우 로 이동 하게 해준다.'
+        },
+        {
+            title: 'validation-util',
+            path: './validation-util/index.html',
+            info: 'values 의 값을 확인하고 오류사항이 있는 값을 알려준다.'
         }
     ];
 

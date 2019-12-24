@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <script src="./src/javscript/validatio-config.js"></script>
+        <script src="./src/javscript/validatio-util.js"></script>
+    </head>
+    <body>
+        <h1>validation</h1>
+        <input id="id" value="123">
+        <input class="test" value="abc">
+        <input class="test" value="4567">
+        <input id="test2" value="wkrud203@gmail.com">
+    </body>
+    </body>
+    <script>
+        const validation_util = new ValidationUtil();
+
+        validation_util.sumit({
+            list: [
+                {
+                    name: 'id',
+                    target: '#id',
+                    type: 'Number',
+                },
+                {
+                    target: '.test',
+                    type: 'String',
+                },
+                {
+                    value: 'test123',
+                    type: 'String'
+                },
+                {
+                    target: '#test2',
+                    rule: /wkrud203@gmail.com/g
+                }
+            ],
+            success: (e) => {
+                console.log('success : ', e);
+            },
+            error: (e) => {
+                console.log('error : ', e);
+            },
+            complete: (e) => {
+                console.log('complete : ', e);
+            }
+        });
+    </script>
+</html>
