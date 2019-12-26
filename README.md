@@ -104,3 +104,59 @@ scrollUtil.init({
 |---|:---:|
 | `init` | scroll event 초기화하고 적용한다. |
 | `reSet` | scroll 영역 position 을 초기화 한다. |
+
+# 3 . validation-util
+
+## - 사용법
+
+```javascript
+const validation_util = new ValidationUtil();
+
+validation_util.sumit({
+    list: [
+        {
+            target: '#id',
+            type: 'number',
+        },
+        {
+            target: '.test',
+            type: 'String',
+        },
+        {
+            value: {test1: '123', test2: 123},
+            type: 'String'
+        },
+        {
+            target: '#test2',
+            rule: /wkrud203@gmail.com/g
+        }
+        ],
+        success: (e) => {
+            console.log('success : ', e);
+        },
+        error: (e) => {
+            console.log('error : ', e);
+        },
+        complete: (e) => {
+            console.log('complete : ', e);
+        }
+    });
+```
+
+## - Options
+
+```
+{
+	list : // json {target : element id or class, value : 확인할 value , type {object, number, string}, rule : 정규식}
+	success: validation 일치할때 호출,
+	error: validation 일치하지 안을때 호출,
+	success: 할상 호출
+}
+```
+
+## - RETURN 함수
+| 함수 | 설명 |
+|---|:---:|
+| `sumit` | options 을 설정하고 validation 을 진행한다. |
+| `optionSet` | options 을 설정 후 check() 호출 전까지 validation 을 실행 안함 |
+| `check`|  optionSet 에서 설정된 option 정보로 validation 을 진행 한다. |
