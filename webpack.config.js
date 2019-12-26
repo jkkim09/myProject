@@ -6,7 +6,7 @@ module.exports = {
     entry: {
         'custom-modal': ['./custom-modal/css/custom-modal.css','./custom-modal/js/custom-modal.js'],
         'mouse-scroll':['./scroll-event/src/javascript/mouse-scroll/mouse-scroll-event.js'],
-        'validation-util': ['./validation-util/src/javscript/validatio-config.js', './validation-util/src/javscript/validatio-util.js']
+        // 'validation-util': ['./validation-util/src/javscript/validatio-config.js', './validation-util/src/javscript/validatio-util.js']
     },
     output: {
       filename: '[name].min.js',
@@ -41,7 +41,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template:'./custom-modal/index.html',
+            template:'./index.html',
             filename:'./index.html'
         })
     ],

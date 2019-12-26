@@ -2,10 +2,11 @@
     <head>
         <script src="./src/javscript/validatio-config.js"></script>
         <script src="./src/javscript/validatio-util.js"></script>
+        <script src="/dist/validation-util.min.js"></script>
     </head>
     <body>
         <h1>validation</h1>
-        <input id="id" value="123">
+        <input id="id" value=123>
         <input class="test" value="abc">
         <input class="test" value="4567">
         <input id="test2" value="wkrud203@gmail.com">
@@ -19,7 +20,7 @@
                 {
                     name: 'id',
                     target: '#id',
-                    type: 'Number',
+                    type: 'number',
                 },
                 {
                     target: '.test',
@@ -27,7 +28,7 @@
                 },
                 {
                     value: {test1: '123', test2: 123},
-                    type: 'Object'
+                    type: 'String'
                 },
                 {
                     target: '#test2',

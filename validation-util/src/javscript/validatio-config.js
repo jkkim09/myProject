@@ -1,6 +1,7 @@
 class ValidationConfig {
 
     constructor() {
+        this.set_target_element = [];
         this.rule = {
             test: / {0,}/g,
             number: /\d/g,
@@ -22,5 +23,13 @@ class ValidationConfig {
 
     setRule(key, value) {
         this.rule[key] = value;
+    }
+
+    setTargetElement(index, value) {
+        this.set_target_element[index] = value;
+    }
+
+    getTargetElement(index) {
+        return this.set_target_element[index];
     }
 }
